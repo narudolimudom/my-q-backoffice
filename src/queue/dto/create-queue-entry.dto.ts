@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateQueueEntryDto {
-    @IsNotEmpty()
-    readonly partySize: number;
+  @IsNotEmpty()
+  readonly partySize: number;
 
-    @IsOptional()
-    readonly notes : string;
+  @IsOptional()
+  readonly notes: string;
 }

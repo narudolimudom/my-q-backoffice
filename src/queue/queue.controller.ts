@@ -5,14 +5,14 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('queue')
 export class QueueController {
-constructor(private readonly queueService: QueueService) { }
+  constructor(private readonly queueService: QueueService) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Post()
-    public createQueueEntry(
-        @Request() req: any,
-        @Body() createQueueEntryDto: CreateQueueEntryDto
-    ) {
-        return this.queueService.createQueueEntry(req.user.id , createQueueEntryDto)
-    }
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  public createQueueEntry(
+    @Request() req: { user: { id: string } },
+    @Body() createQueueEntryDto: CreateQueueEntryDto,
+  ) {
+    return this.queueService.createQueueEntry(req.user.id, createQueueEntryDto);
+  }
 }

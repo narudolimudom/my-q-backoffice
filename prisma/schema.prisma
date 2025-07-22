@@ -14,14 +14,15 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  email      String      @unique
-  password   String
-  name       String
-  role       Role        @default(USER)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  queueEntry QueueEntry?
+  id           String      @id @default(uuid())
+  email        String      @unique
+  password     String
+  name         String
+  role         Role        @default(USER)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  queueEntry   QueueEntry? @relation(fields: [queueEntryId], references: [id])
+  queueEntryId String?
 }
 
 enum Role {
@@ -32,7 +33,7 @@ enum Role {
 
 model QueueEntry {
   id          String      @id @default(uuid())
-  queueNumber Int         @unique
+  queueNumber Int
   partySize   Int
   tableType   TableType
   status      QueueStatus @default(WAITING)
@@ -41,9 +42,11 @@ model QueueEntry {
   calledAt    DateTime?
   seatedAt    DateTime?
   canceledAt  DateTime?
+  userId      String
+  User        User[]
 
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  @@unique([queueNumber])
+  @@index([status, createdAt])
 }
 
 enum TableType {

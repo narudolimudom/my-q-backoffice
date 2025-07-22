@@ -5,7 +5,9 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { QueueModule } from './queue/queue.module';
-import { QueueUpdatesGateway } from './queue-updates/queue-updates.gateway';
+import { QueueGateway } from './queue/queue.gateway';
+import { PrismaModule } from './prisma/prisma.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -13,8 +15,10 @@ import { QueueUpdatesGateway } from './queue-updates/queue-updates.gateway';
     UsersModule,
     AuthModule,
     QueueModule,
+    PrismaModule,
+    JwtModule,
   ],
   controllers: [AppController],
-  providers: [AppService, QueueUpdatesGateway],
+  providers: [AppService, QueueGateway],
 })
 export class AppModule {}
