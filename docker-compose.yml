@@ -35,7 +35,7 @@ services:
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
-    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run start:prod"
+    command: sh -c "npx prisma migrate deploy && npm run start:prod"
 
 volumes:
   postgres-data:
