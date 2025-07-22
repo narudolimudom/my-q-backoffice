@@ -14,7 +14,12 @@ import { BadRequestException, UseGuards } from '@nestjs/common';
 import { WsGuard } from 'src/auth/guards/ws-auth.guard';
 import { AuthenticatedSocket } from 'src/common/interfaces/socket.interface';
 
-@WebSocketGateway({ cors: { origin: '*' } })
+@WebSocketGateway({
+  cors: {
+    origin: process.env.APP_URL || 'http://localhost:3000',
+    credentials: true,
+  },
+})
 export class QueueGateway implements OnGatewayConnection {
   @WebSocketServer()
   server: Server;
